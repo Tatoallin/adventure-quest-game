@@ -319,30 +319,30 @@ const imagenes = {
 let imagenesCargas = 0;
 let totalImagenes = 0;
 
-// Función para cargar imágenes
+// Función para cargar imágenes - CORREGIDA con rutas de GitHub
 function cargarImagenes() {
-    // Cargar fondos
+    // Cargar fondos - usando rutas absolutas de GitHub
     imagenes.fondos[1] = new Image();
-    imagenes.fondos[1].src = 'images/fondo1.png'; // Bosque
+    imagenes.fondos[1].src = 'https://github.com/Tatoallin/adventure-quest-game/raw/main/images/fondo1.png';
     imagenes.fondos[2] = new Image();
-    imagenes.fondos[2].src = 'images/fondo2.png'; // Desierto
+    imagenes.fondos[2].src = 'https://github.com/Tatoallin/adventure-quest-game/raw/main/images/fondo2.png';
     imagenes.fondos[3] = new Image();
-    imagenes.fondos[3].src = 'images/fondo3.png'; // Montañas
+    imagenes.fondos[3].src = 'https://github.com/Tatoallin/adventure-quest-game/raw/main/images/fondo3.png';
     
     // Cargar personaje
-    imagenes.personaje.src = 'images/personaje.png';
+    imagenes.personaje.src = 'https://github.com/Tatoallin/adventure-quest-game/raw/main/images/personaje.png';
     
     // Cargar enemigos
     imagenes.enemigos[1] = new Image();
-    imagenes.enemigos[1].src = 'images/enemigo1.png'; // Enemigo del bosque
+    imagenes.enemigos[1].src = 'https://github.com/Tatoallin/adventure-quest-game/raw/main/images/enemigo1.png';
     imagenes.enemigos[2] = new Image();
-    imagenes.enemigos[2].src = 'images/enemigo2.png'; // Enemigo del desierto
+    imagenes.enemigos[2].src = 'https://github.com/Tatoallin/adventure-quest-game/raw/main/images/enemigo2.png';
     imagenes.enemigos[3] = new Image();
-    imagenes.enemigos[3].src = 'images/enemigo3.png'; // Enemigo de las montañas
+    imagenes.enemigos[3].src = 'https://github.com/Tatoallin/adventure-quest-game/raw/main/images/enemigo3.png';
     
     // Cargar plataformas y meta
-    imagenes.plataformas.src = 'images/plataforma.png';
-    imagenes.meta.src = 'images/meta.png';
+    imagenes.plataformas.src = 'https://github.com/Tatoallin/adventure-quest-game/raw/main/images/plataforma.png';
+    imagenes.meta.src = 'https://github.com/Tatoallin/adventure-quest-game/raw/main/images/meta.png';
     
     // Contar total de imágenes
     totalImagenes = 9;
@@ -681,7 +681,7 @@ function actualizarJuego() {
 
 function iniciarJuego() {
     gameStarted = true;
-    cargarImagenes(); // Agregamos esta línea para cargar las imágenes
+    cargarImagenes();
     updateLevelInfo();
     actualizarJuego();
 }
