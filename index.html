@@ -323,26 +323,26 @@ let totalImagenes = 0;
 function cargarImagenes() {
     // Cargar fondos
     imagenes.fondos[1] = new Image();
-    imagenes.fondos[1].src = 'imagenes/fondo1.png'; // Bosque
+    imagenes.fondos[1].src = 'images/fondo1.png'; // Bosque
     imagenes.fondos[2] = new Image();
-    imagenes.fondos[2].src = 'imagenes/fondo2.png'; // Desierto
+    imagenes.fondos[2].src = 'images/fondo2.png'; // Desierto
     imagenes.fondos[3] = new Image();
-    imagenes.fondos[3].src = 'imagenes/fondo3.png'; // Montañas
+    imagenes.fondos[3].src = 'images/fondo3.png'; // Montañas
     
     // Cargar personaje
-    imagenes.personaje.src = 'imagenes/personaje.png';
+    imagenes.personaje.src = 'images/personaje.png';
     
     // Cargar enemigos
     imagenes.enemigos[1] = new Image();
-    imagenes.enemigos[1].src = 'imagenes/enemigo1.png'; // Enemigo del bosque
+    imagenes.enemigos[1].src = 'images/enemigo1.png'; // Enemigo del bosque
     imagenes.enemigos[2] = new Image();
-    imagenes.enemigos[2].src = 'imagenes/enemigo2.png'; // Enemigo del desierto
+    imagenes.enemigos[2].src = 'images/enemigo2.png'; // Enemigo del desierto
     imagenes.enemigos[3] = new Image();
-    imagenes.enemigos[3].src = 'imagenes/enemigo3.png'; // Enemigo de las montañas
+    imagenes.enemigos[3].src = 'images/enemigo3.png'; // Enemigo de las montañas
     
     // Cargar plataformas y meta
-    imagenes.plataformas.src = 'imagenes/plataforma.png';
-    imagenes.meta.src = 'imagenes/meta.png';
+    imagenes.plataformas.src = 'images/plataforma.png';
+    imagenes.meta.src = 'images/meta.png';
     
     // Contar total de imágenes
     totalImagenes = 9;
@@ -681,6 +681,7 @@ function actualizarJuego() {
 
 function iniciarJuego() {
     gameStarted = true;
+    cargarImagenes(); // Agregamos esta línea para cargar las imágenes
     updateLevelInfo();
     actualizarJuego();
 }
