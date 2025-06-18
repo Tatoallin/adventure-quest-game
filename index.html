@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adventure Quest - Videojuego</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #1A1B41;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 28px;
+            font-weight: bold;
+            position: relative;
+        }
+
+        .nav-buttons {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .nav-button {
+            background-color: #2A2B51;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+            border-radius: 5px;
+            margin-left: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-button:hover {
+            background-color: #3A3B61;
+        }
+
+        .banner {
+            text-align: center;
+            background-color: #1A1B41;
+            padding: 40px 0;
+            color: white;
+        }
+
+        .banner h1 {
+            font-size: 48px;
+            margin: 0;
+            font-family: 'Arial Black', Arial, sans-serif;
+        }
+
+        .banner p {
+            font-size: 20px;
+            margin: 20px 0;
+        }
+
+        section {
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        section h2 {
+            color: #1A1B41;
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        section p {
+            color: #555;
+            font-size: 18px;
+            line-height: 1.6;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        .canvas-container {
+            background-color: #1A1B41;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 900px;
+        }
+
+        canvas {
+            border: 3px solid white;
+            border-radius: 5px;
+            display: block;
+            margin: 0 auto;
+            max-width: 100%;
+            height: auto;
+        }
+
+        .game-controls {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .level-info {
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .secciones {
+            display: flex;
+            justify-content: space-around;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 40px 0;
+        }
+
+        .seccion {
+            width: 22%;
+            min-width: 250px;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            border-top: 5px solid #1A1B41;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .seccion:hover {
+            transform: translateY(-5px);
+            background-color: #f8f9fa;
+        }
+
+        .seccion h3 {
+            color: #1A1B41;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .seccion p {
+            font-size: 14px;
+            text-align: left;
+        }
+
+        button {
+            background-color: #1A1B41;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            margin: 10px;
+        }
+
+        button:hover {
+            background-color: #2A2B51;
+        }
+
+        .game-button {
+            padding: 10px 20px;
+            font-size: 14px;
+            margin: 5px;
+        }
+
+        footer {
+            background-color: #1A1B41;
+            color: white;
+            text-align: center;
+            padding: 30px;
+            margin-top: 40px;
+        }
+
+        footer a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+            font-size: 18px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            .secciones {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .seccion {
+                width: 90%;
+            }
+            
+            .banner h1 {
+                font-size: 32px;
+            }
+            
+            .nav-buttons {
+                position: static;
+                transform: none;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    Adventure Quest
+    <div class="nav-buttons">
+        <button class="nav-button" onclick="showSection('home')">Inicio</button>
+        <button class="nav-button" onclick="showSection('game')">Jugar</button>
+    </div>
+</header>
+
+<div id="home-section">
+    <div class="banner">
+        <h1>Vive la Aventura</h1>
+        <p>Un juego de plataformas lleno de desafíos y diversión</p>
+    </div>
+
+    <section>
+        <h2>Acerca del Juego</h2>
+        <p>Adventure Quest es un emocionante juego de plataformas donde controlas a un personaje que debe superar obstáculos, saltar precipicios y alcanzar la meta en cada nivel. Usa las flechas del teclado para moverte y la barra espaciadora para saltar.</p>
+        
+        <button onclick="showSection('game')">JUGAR AHORA</button>
+    </section>
+
+    <section>
+        <h2>Características</h2>
+        <div class="secciones">
+            <div class="seccion">
+                <h3>Múltiples Niveles</h3>
+                <p>3 niveles únicos con diferentes fondos, enemigos y desafíos progresivos.</p>
+            </div>
+            <div class="seccion">
+                <h3>Controles Simples</h3>
+                <p>Fácil de aprender, difícil de dominar. Usa las flechas para moverte y espacio para saltar.</p>
+            </div>
+            <div class="seccion">
+                <h3>Enemigos Dinámicos</h3>
+                <p>Cada nivel presenta enemigos únicos con diferentes patrones de movimiento.</p>
+            </div>
+            <div class="seccion">
+                <h3>Plataformas Desafiantes</h3>
+                <p>El nivel 3 incluye plataformas elevadas que requieren saltos precisos.</p>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div id="game-section" class="hidden">
+    <section>
+        <div class="canvas-container">
+            <div class="level-info" id="levelInfo">Nivel 1 - Bosque Mágico</div>
+            <canvas id="gameCanvas" width="800" height="400"></canvas>
+            <div class="game-controls">
+                <p style="color: white; margin: 15px 0;">Usa las flechas y ESPACIO para jugar</p>
+                <button class="game-button" onclick="resetGame()">Reiniciar Nivel</button>
+                <button class="game-button" onclick="nextLevel()">Siguiente Nivel</button>
+                <button class="game-button" onclick="prevLevel()">Nivel Anterior</button>
+            </div>
+        </div>
+    </section>
+</div>
+
+<footer>
+    <p>Adventure Quest © 2025</p>
+    <a href="#" onclick="alert('Próximamente')">📧 Contacto</a>
+    <a href="#" onclick="alert('Próximamente')">🎮 Más Juegos</a>
+    <a href="#" onclick="alert('Próximamente')">📖 Tutorial</a>
+</footer>
+
+<script>
+// Navegación entre secciones
+function showSection(section) {
+    const homeSection = document.getElementById('home-section');
+    const gameSection = document.getElementById('game-section');
+    
+    if (section === 'home') {
+        homeSection.classList.remove('hidden');
+        gameSection.classList.add('hidden');
+    } else if (section === 'game') {
+        homeSection.classList.add('hidden');
+        gameSection.classList.remove('hidden');
+        if (!gameStarted) {
+            iniciarJuego();
+        }
+    }
+}
+
+// Variables del juego
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
+const pisoY = canvas.height - 40;
+let gameStarted = false;
+let currentLevel = 1;
+
+// Cargar imágenes
+const imagenes = {
+    fondos: {},
+    personaje: new Image(),
+    enemigos: {},
+    plataformas: new Image(),
+    meta: new Image()
+};
+
+let imagenesCargas = 0;
+let totalImagenes = 0;
+
+// Función para cargar imágenes
+function cargarImagenes() {
+    // Cargar fondos
+    imagenes.fondos[1] = new Image();
+    imagenes.fondos[1].src = 'imagenes/fondo1.png'; // Bosque
+    imagenes.fondos[2] = new Image();
+    imagenes.fondos[2].src = 'imagenes/fondo2.png'; // Desierto
+    imagenes.fondos[3] = new Image();
+    imagenes.fondos[3].src = 'imagenes/fondo3.png'; // Montañas
+    
+    // Cargar personaje
+    imagenes.personaje.src = 'imagenes/personaje.png';
+    
+    // Cargar enemigos
+    imagenes.enemigos[1] = new Image();
+    imagenes.enemigos[1].src = 'imagenes/enemigo1.png'; // Enemigo del bosque
+    imagenes.enemigos[2] = new Image();
+    imagenes.enemigos[2].src = 'imagenes/enemigo2.png'; // Enemigo del desierto
+    imagenes.enemigos[3] = new Image();
+    imagenes.enemigos[3].src = 'imagenes/enemigo3.png'; // Enemigo de las montañas
+    
+    // Cargar plataformas y meta
+    imagenes.plataformas.src = 'imagenes/plataforma.png';
+    imagenes.meta.src = 'imagenes/meta.png';
+    
+    // Contar total de imágenes
+    totalImagenes = 9;
+    
+    // Agregar event listeners para verificar cuando se cargan
+    Object.values(imagenes.fondos).forEach(img => {
+        img.onload = () => {
+            imagenesCargas++;
+            verificarImagenesCargadas();
+        };
+        img.onerror = () => {
+            console.warn('No se pudo cargar imagen de fondo, usando color de respaldo');
+            imagenesCargas++;
+            verificarImagenesCargadas();
+        };
+    });
+    
+    imagenes.personaje.onload = () => {
+        imagenesCargas++;
+        verificarImagenesCargadas();
+    };
+    imagenes.personaje.onerror = () => {
+        console.warn('No se pudo cargar imagen del personaje, usando rectángulo');
+        imagenesCargas++;
+        verificarImagenesCargadas();
+    };
+    
+    Object.values(imagenes.enemigos).forEach(img => {
+        img.onload = () => {
+            imagenesCargas++;
+            verificarImagenesCargadas();
+        };
+        img.onerror = () => {
+            console.warn('No se pudo cargar imagen de enemigo, usando rectángulo');
+            imagenesCargas++;
+            verificarImagenesCargadas();
+        };
+    });
+    
+    imagenes.plataformas.onload = () => {
+        imagenesCargas++;
+        verificarImagenesCargadas();
+    };
+    imagenes.plataformas.onerror = () => {
+        console.warn('No se pudo cargar imagen de plataforma, usando rectángulo');
+        imagenesCargas++;
+        verificarImagenesCargadas();
+    };
+    
+    imagenes.meta.onload = () => {
+        imagenesCargas++;
+        verificarImagenesCargadas();
+    };
+    imagenes.meta.onerror = () => {
+        console.warn('No se pudo cargar imagen de meta, usando rectángulo');
+        imagenesCargas++;
+        verificarImagenesCargadas();
+    };
+}
+
+function verificarImagenesCargadas() {
+    if (imagenesCargas >= totalImagenes) {
+        console.log('Todas las imágenes han sido procesadas');
+    }
+}
+
+// Configuración de niveles
+const niveles = {
+    1: {
+        nombre: "Nivel 1 - Bosque Mágico",
+        fondoColor: "#87CEEB",
+        pisoColor: "#228B22",
+        enemigos: [
+            { x: 200, y: pisoY - 30, ancho: 30, alto: 30, velocidad: 1, direccion: 1, rango: 100, inicialX: 200 },
+            { x: 400, y: pisoY - 30, ancho: 30, alto: 30, velocidad: 1.5, direccion: -1, rango: 80, inicialX: 400 }
+        ],
+        plataformas: []
+    },
+    2: {
+        nombre: "Nivel 2 - Desierto Ardiente",
+        fondoColor: "#F4A460",
+        pisoColor: "#CD853F",
+        enemigos: [
+            { x: 150, y: pisoY - 35, ancho: 35, alto: 35, velocidad: 2, direccion: 1, rango: 120, inicialX: 150 },
+            { x: 350, y: pisoY - 35, ancho: 35, alto: 35, velocidad: 1.8, direccion: -1, rango: 90, inicialX: 350 },
+            { x: 550, y: pisoY - 35, ancho: 35, alto: 35, velocidad: 1.2, direccion: 1, rango: 110, inicialX: 550 }
+        ],
+        plataformas: []
+    },
+    3: {
+        nombre: "Nivel 3 - Montañas Heladas",
+        fondoColor: "#B0E0E6",
+        pisoColor: "#708090",
+        enemigos: [
+            { x: 300, y: pisoY - 40, ancho: 40, alto: 40, velocidad: 0.8, direccion: 1, rango: 80, inicialX: 300 },
+            { x: 200, y: pisoY - 150, ancho: 35, alto: 35, velocidad: 1.5, direccion: -1, rango: 100, inicialX: 200 }
+        ],
+        plataformas: [
+            { x: 150, y: pisoY - 120, ancho: 150, alto: 20 },
+            { x: 400, y: pisoY - 180, ancho: 120, alto: 20 },
+            { x: 600, y: pisoY - 100, ancho: 100, alto: 20 }
+        ]
+    }
+};
+
+let personaje = {
+    x: 50,
+    y: pisoY - 40,
+    ancho: 30,
+    alto: 40,
+    velocidadY: 0,
+    gravedad: 0.8,
+    fuerzaSalto: -15,
+    enElAire: false,
+    velocidadMovimiento: 4
+};
+
+let teclas = {
+    izquierda: false,
+    derecha: false
+};
+
+// Meta
+const meta = {
+    x: 650,
+    y: pisoY - 60,
+    ancho: 40,
+    alto: 60
+};
+
+// Event listeners
+window.addEventListener("keydown", function(e) {
+    if (e.code === "ArrowLeft") teclas.izquierda = true;
+    if (e.code === "ArrowRight") teclas.derecha = true;
+    if (e.code === "Space" && !personaje.enElAire) {
+        personaje.velocidadY = personaje.fuerzaSalto;
+        personaje.enElAire = true;
+        e.preventDefault();
+    }
+});
+
+window.addEventListener("keyup", function(e) {
+    if (e.code === "ArrowLeft") teclas.izquierda = false;
+    if (e.code === "ArrowRight") teclas.derecha = false;
+});
+
+function aplicarGravedad() {
+    personaje.velocidadY += personaje.gravedad;
+    personaje.y += personaje.velocidadY;
+
+    // Colisión con el piso
+    if (personaje.y + personaje.alto >= pisoY) {
+        personaje.y = pisoY - personaje.alto;
+        personaje.velocidadY = 0;
+        personaje.enElAire = false;
+    }
+
+    // Colisión con plataformas (solo nivel 3)
+    if (currentLevel === 3) {
+        const plataformas = niveles[3].plataformas;
+        for (let plat of plataformas) {
+            if (personaje.x < plat.x + plat.ancho &&
+                personaje.x + personaje.ancho > plat.x &&
+                personaje.y + personaje.alto > plat.y &&
+                personaje.y + personaje.alto < plat.y + plat.alto + 10 &&
+                personaje.velocidadY > 0) {
+                personaje.y = plat.y - personaje.alto;
+                personaje.velocidadY = 0;
+                personaje.enElAire = false;
+            }
+        }
+    }
+}
+
+function moverPersonaje() {
+    if (teclas.izquierda && personaje.x > 0) {
+        personaje.x -= personaje.velocidadMovimiento;
+    }
+    if (teclas.derecha && personaje.x + personaje.ancho < canvas.width) {
+        personaje.x += personaje.velocidadMovimiento;
+    }
+}
+
+function moverEnemigos() {
+    const enemigos = niveles[currentLevel].enemigos;
+    for (let enemigo of enemigos) {
+        enemigo.x += enemigo.velocidad * enemigo.direccion;
+        
+        // Cambiar dirección al alcanzar los límites del rango
+        if (enemigo.x <= enemigo.inicialX - enemigo.rango || 
+            enemigo.x >= enemigo.inicialX + enemigo.rango) {
+            enemigo.direccion *= -1;
+        }
+    }
+}
+
+function detectarColisiones() {
+    const enemigos = niveles[currentLevel].enemigos;
+    for (let enemigo of enemigos) {
+        if (personaje.x < enemigo.x + enemigo.ancho &&
+            personaje.x + personaje.ancho > enemigo.x &&
+            personaje.y < enemigo.y + enemigo.alto &&
+            personaje.y + personaje.alto > enemigo.y) {
+            // Reiniciar posición al colisionar
+            resetPlayerPosition();
+        }
+    }
+}
+
+function detectarMeta() {
+    if (personaje.x < meta.x + meta.ancho &&
+        personaje.x + personaje.ancho > meta.x &&
+        personaje.y < meta.y + meta.alto &&
+        personaje.y + personaje.alto > meta.y) {
+        
+        if (currentLevel < 3) {
+            currentLevel++;
+            resetPlayerPosition();
+            updateLevelInfo();
+            alert(`¡Nivel ${currentLevel - 1} completado! Avanzando al ${niveles[currentLevel].nombre}`);
+        } else {
+            alert("¡Felicitaciones! Has completado todos los niveles.");
+            currentLevel = 1;
+            resetPlayerPosition();
+            updateLevelInfo();
+        }
+    }
+}
+
+function resetPlayerPosition() {
+    personaje.x = 50;
+    personaje.y = pisoY - personaje.alto;
+    personaje.velocidadY = 0;
+    personaje.enElAire = false;
+}
+
+function updateLevelInfo() {
+    document.getElementById('levelInfo').textContent = niveles[currentLevel].nombre;
+}
+
+function dibujarJuego() {
+    const nivel = niveles[currentLevel];
+    
+    // Limpiar canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    // Dibujar fondo
+    const fondoImg = imagenes.fondos[currentLevel];
+    if (fondoImg && fondoImg.complete) {
+        ctx.drawImage(fondoImg, 0, 0, canvas.width, canvas.height);
+    } else {
+        // Fallback color si no se carga la imagen
+        ctx.fillStyle = nivel.fondoColor;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+    
+    // Dibujar piso (mantener el color para el piso)
+    ctx.fillStyle = nivel.pisoColor;
+    ctx.fillRect(0, pisoY, canvas.width, canvas.height - pisoY);
+    
+    // Dibujar plataformas (solo nivel 3)
+    if (currentLevel === 3) {
+        for (let plat of nivel.plataformas) {
+            if (imagenes.plataformas.complete) {
+                ctx.drawImage(imagenes.plataformas, plat.x, plat.y, plat.ancho, plat.alto);
+            } else {
+                // Fallback
+                ctx.fillStyle = "#696969";
+                ctx.fillRect(plat.x, plat.y, plat.ancho, plat.alto);
+            }
+        }
+    }
+    
+    // Dibujar enemigos
+    const enemigoImg = imagenes.enemigos[currentLevel];
+    for (let enemigo of nivel.enemigos) {
+        if (enemigoImg && enemigoImg.complete) {
+            ctx.drawImage(enemigoImg, enemigo.x, enemigo.y, enemigo.ancho, enemigo.alto);
+        } else {
+            // Fallback
+            ctx.fillStyle = "#DC143C";
+            ctx.fillRect(enemigo.x, enemigo.y, enemigo.ancho, enemigo.alto);
+            
+            // Ojos del enemigo (fallback)
+            ctx.fillStyle = "white";
+            ctx.fillRect(enemigo.x + 5, enemigo.y + 5, 5, 5);
+            ctx.fillRect(enemigo.x + enemigo.ancho - 10, enemigo.y + 5, 5, 5);
+        }
+    }
+    
+    // Dibujar meta
+    if (imagenes.meta.complete) {
+        ctx.drawImage(imagenes.meta, meta.x, meta.y, meta.ancho, meta.alto);
+    } else {
+        // Fallback
+        ctx.fillStyle = "#32CD32";
+        ctx.fillRect(meta.x, meta.y, meta.ancho, meta.alto);
+        
+        // Bandera en la meta (fallback)
+        ctx.fillStyle = "#FFD700";
+        ctx.fillRect(meta.x + 15, meta.y, 10, 20);
+    }
+    
+    // Dibujar personaje
+    if (imagenes.personaje.complete) {
+        ctx.drawImage(imagenes.personaje, personaje.x, personaje.y, personaje.ancho, personaje.alto);
+    } else {
+        // Fallback
+        ctx.fillStyle = "#1A1B41";
+        ctx.fillRect(personaje.x, personaje.y, personaje.ancho, personaje.alto);
+        
+        // Ojos del personaje (fallback)
+        ctx.fillStyle = "white";
+        ctx.fillRect(personaje.x + 5, personaje.y + 8, 6, 6);
+        ctx.fillRect(personaje.x + personaje.ancho - 11, personaje.y + 8, 6, 6);
+    }
+    
+    // Instrucciones
+    ctx.fillStyle = "white";
+    ctx.font = "14px Arial";
+    ctx.fillText("Usa las flechas para moverte y ESPACIO para saltar", 10, 20);
+    ctx.fillText(`${niveles[currentLevel].nombre}`, 10, canvas.height - 10);
+}
+
+function actualizarJuego() {
+    if (gameStarted) {
+        aplicarGravedad();
+        moverPersonaje();
+        moverEnemigos();
+        detectarColisiones();
+        detectarMeta();
+        dibujarJuego();
+    }
+    requestAnimationFrame(actualizarJuego);
+}
+
+function iniciarJuego() {
+    gameStarted = true;
+    updateLevelInfo();
+    actualizarJuego();
+}
+
+function resetGame() {
+    resetPlayerPosition();
+}
+
+function nextLevel() {
+    if (currentLevel < 3) {
+        currentLevel++;
+        resetPlayerPosition();
+        updateLevelInfo();
+    }
+}
+
+function prevLevel() {
+    if (currentLevel > 1) {
+        currentLevel--;
+        resetPlayerPosition();
+        updateLevelInfo();
+    }
+}
+
+// Iniciar el loop del juego
+actualizarJuego();
+</script>
+
+</body>
+</html>
