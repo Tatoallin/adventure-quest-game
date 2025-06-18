@@ -319,9 +319,9 @@ const imagenes = {
 let imagenesCargas = 0;
 let totalImagenes = 0;
 
-// Función para cargar imágenes - CORREGIDA con rutas de GitHub
+// Función para cargar imágenes - CORREGIDA con nombres exactos
 function cargarImagenes() {
-    // Cargar fondos - usando rutas absolutas de GitHub
+    // Cargar fondos - usando nombres exactos de tu repositorio
     imagenes.fondos[1] = new Image();
     imagenes.fondos[1].src = 'https://github.com/Tatoallin/adventure-quest-game/raw/main/images/fondo1.png';
     imagenes.fondos[2] = new Image();
@@ -340,12 +340,11 @@ function cargarImagenes() {
     imagenes.enemigos[3] = new Image();
     imagenes.enemigos[3].src = 'https://github.com/Tatoallin/adventure-quest-game/raw/main/images/enemigo3.png';
     
-    // Cargar plataformas y meta
-    imagenes.plataformas.src = 'https://github.com/Tatoallin/adventure-quest-game/raw/main/images/plataforma.png';
+    // Cargar meta
     imagenes.meta.src = 'https://github.com/Tatoallin/adventure-quest-game/raw/main/images/meta.png';
     
     // Contar total de imágenes
-    totalImagenes = 9;
+    totalImagenes = 8;
     
     // Agregar event listeners para verificar cuando se cargan
     Object.values(imagenes.fondos).forEach(img => {
@@ -353,8 +352,8 @@ function cargarImagenes() {
             imagenesCargas++;
             verificarImagenesCargadas();
         };
-        img.onerror = () => {
-            console.warn('No se pudo cargar imagen de fondo, usando color de respaldo');
+        img.onerror = (e) => {
+            console.warn('No se pudo cargar imagen de fondo:', e.target.src);
             imagenesCargas++;
             verificarImagenesCargadas();
         };
@@ -364,8 +363,8 @@ function cargarImagenes() {
         imagenesCargas++;
         verificarImagenesCargadas();
     };
-    imagenes.personaje.onerror = () => {
-        console.warn('No se pudo cargar imagen del personaje, usando rectángulo');
+    imagenes.personaje.onerror = (e) => {
+        console.warn('No se pudo cargar imagen del personaje:', e.target.src);
         imagenesCargas++;
         verificarImagenesCargadas();
     };
@@ -375,29 +374,19 @@ function cargarImagenes() {
             imagenesCargas++;
             verificarImagenesCargadas();
         };
-        img.onerror = () => {
-            console.warn('No se pudo cargar imagen de enemigo, usando rectángulo');
+        img.onerror = (e) => {
+            console.warn('No se pudo cargar imagen de enemigo:', e.target.src);
             imagenesCargas++;
             verificarImagenesCargadas();
         };
     });
     
-    imagenes.plataformas.onload = () => {
-        imagenesCargas++;
-        verificarImagenesCargadas();
-    };
-    imagenes.plataformas.onerror = () => {
-        console.warn('No se pudo cargar imagen de plataforma, usando rectángulo');
-        imagenesCargas++;
-        verificarImagenesCargadas();
-    };
-    
     imagenes.meta.onload = () => {
         imagenesCargas++;
         verificarImagenesCargadas();
     };
-    imagenes.meta.onerror = () => {
-        console.warn('No se pudo cargar imagen de meta, usando rectángulo');
+    imagenes.meta.onerror = (e) => {
+        console.warn('No se pudo cargar imagen de meta:', e.target.src);
         imagenesCargas++;
         verificarImagenesCargadas();
     };
@@ -409,15 +398,15 @@ function verificarImagenesCargadas() {
     }
 }
 
-// Configuración de niveles
+// Configuración de niveles - CORREGIDAS las posiciones y tamaños
 const niveles = {
     1: {
         nombre: "Nivel 1 - Bosque Mágico",
         fondoColor: "#87CEEB",
         pisoColor: "#228B22",
         enemigos: [
-            { x: 200, y: pisoY - 30, ancho: 30, alto: 30, velocidad: 1, direccion: 1, rango: 100, inicialX: 200 },
-            { x: 400, y: pisoY - 30, ancho: 30, alto: 30, velocidad: 1.5, direccion: -1, rango: 80, inicialX: 400 }
+            { x: 200, y: pisoY - 50, ancho: 50, alto: 50, velocidad: 1, direccion: 1, rango: 100, inicialX: 200 },
+            { x: 400, y: pisoY - 50, ancho: 50, alto: 50, velocidad: 1.5, direccion: -1, rango: 80, inicialX: 400 }
         ],
         plataformas: []
     },
@@ -426,9 +415,9 @@ const niveles = {
         fondoColor: "#F4A460",
         pisoColor: "#CD853F",
         enemigos: [
-            { x: 150, y: pisoY - 35, ancho: 35, alto: 35, velocidad: 2, direccion: 1, rango: 120, inicialX: 150 },
-            { x: 350, y: pisoY - 35, ancho: 35, alto: 35, velocidad: 1.8, direccion: -1, rango: 90, inicialX: 350 },
-            { x: 550, y: pisoY - 35, ancho: 35, alto: 35, velocidad: 1.2, direccion: 1, rango: 110, inicialX: 550 }
+            { x: 150, y: pisoY - 50, ancho: 50, alto: 50, velocidad: 2, direccion: 1, rango: 120, inicialX: 150 },
+            { x: 350, y: pisoY - 50, ancho: 50, alto: 50, velocidad: 1.8, direccion: -1, rango: 90, inicialX: 350 },
+            { x: 550, y: pisoY - 50, ancho: 50, alto: 50, velocidad: 1.2, direccion: 1, rango: 110, inicialX: 550 }
         ],
         plataformas: []
     },
@@ -437,8 +426,8 @@ const niveles = {
         fondoColor: "#B0E0E6",
         pisoColor: "#708090",
         enemigos: [
-            { x: 300, y: pisoY - 40, ancho: 40, alto: 40, velocidad: 0.8, direccion: 1, rango: 80, inicialX: 300 },
-            { x: 200, y: pisoY - 150, ancho: 35, alto: 35, velocidad: 1.5, direccion: -1, rango: 100, inicialX: 200 }
+            { x: 300, y: pisoY - 50, ancho: 50, alto: 50, velocidad: 0.8, direccion: 1, rango: 80, inicialX: 300 },
+            { x: 200, y: pisoY - 170, ancho: 50, alto: 50, velocidad: 1.5, direccion: -1, rango: 100, inicialX: 200 }
         ],
         plataformas: [
             { x: 150, y: pisoY - 120, ancho: 150, alto: 20 },
@@ -450,9 +439,9 @@ const niveles = {
 
 let personaje = {
     x: 50,
-    y: pisoY - 40,
-    ancho: 30,
-    alto: 40,
+    y: pisoY - 60,
+    ancho: 50,
+    alto: 60,
     velocidadY: 0,
     gravedad: 0.8,
     fuerzaSalto: -15,
@@ -465,12 +454,12 @@ let teclas = {
     derecha: false
 };
 
-// Meta
+// Meta - ajustada al tamaño correcto
 const meta = {
     x: 650,
-    y: pisoY - 60,
-    ancho: 40,
-    alto: 60
+    y: pisoY - 80,
+    ancho: 60,
+    alto: 80
 };
 
 // Event listeners
@@ -591,7 +580,7 @@ function dibujarJuego() {
     
     // Dibujar fondo
     const fondoImg = imagenes.fondos[currentLevel];
-    if (fondoImg && fondoImg.complete) {
+    if (fondoImg && fondoImg.complete && fondoImg.naturalWidth > 0) {
         ctx.drawImage(fondoImg, 0, 0, canvas.width, canvas.height);
     } else {
         // Fallback color si no se carga la imagen
@@ -606,20 +595,15 @@ function dibujarJuego() {
     // Dibujar plataformas (solo nivel 3)
     if (currentLevel === 3) {
         for (let plat of nivel.plataformas) {
-            if (imagenes.plataformas.complete) {
-                ctx.drawImage(imagenes.plataformas, plat.x, plat.y, plat.ancho, plat.alto);
-            } else {
-                // Fallback
-                ctx.fillStyle = "#696969";
-                ctx.fillRect(plat.x, plat.y, plat.ancho, plat.alto);
-            }
+            ctx.fillStyle = "#696969";
+            ctx.fillRect(plat.x, plat.y, plat.ancho, plat.alto);
         }
     }
     
     // Dibujar enemigos
     const enemigoImg = imagenes.enemigos[currentLevel];
     for (let enemigo of nivel.enemigos) {
-        if (enemigoImg && enemigoImg.complete) {
+        if (enemigoImg && enemigoImg.complete && enemigoImg.naturalWidth > 0) {
             ctx.drawImage(enemigoImg, enemigo.x, enemigo.y, enemigo.ancho, enemigo.alto);
         } else {
             // Fallback
@@ -628,13 +612,13 @@ function dibujarJuego() {
             
             // Ojos del enemigo (fallback)
             ctx.fillStyle = "white";
-            ctx.fillRect(enemigo.x + 5, enemigo.y + 5, 5, 5);
-            ctx.fillRect(enemigo.x + enemigo.ancho - 10, enemigo.y + 5, 5, 5);
+            ctx.fillRect(enemigo.x + 10, enemigo.y + 10, 8, 8);
+            ctx.fillRect(enemigo.x + enemigo.ancho - 18, enemigo.y + 10, 8, 8);
         }
     }
     
     // Dibujar meta
-    if (imagenes.meta.complete) {
+    if (imagenes.meta.complete && imagenes.meta.naturalWidth > 0) {
         ctx.drawImage(imagenes.meta, meta.x, meta.y, meta.ancho, meta.alto);
     } else {
         // Fallback
@@ -643,11 +627,11 @@ function dibujarJuego() {
         
         // Bandera en la meta (fallback)
         ctx.fillStyle = "#FFD700";
-        ctx.fillRect(meta.x + 15, meta.y, 10, 20);
+        ctx.fillRect(meta.x + 20, meta.y, 20, 30);
     }
     
     // Dibujar personaje
-    if (imagenes.personaje.complete) {
+    if (imagenes.personaje.complete && imagenes.personaje.naturalWidth > 0) {
         ctx.drawImage(imagenes.personaje, personaje.x, personaje.y, personaje.ancho, personaje.alto);
     } else {
         // Fallback
@@ -656,8 +640,8 @@ function dibujarJuego() {
         
         // Ojos del personaje (fallback)
         ctx.fillStyle = "white";
-        ctx.fillRect(personaje.x + 5, personaje.y + 8, 6, 6);
-        ctx.fillRect(personaje.x + personaje.ancho - 11, personaje.y + 8, 6, 6);
+        ctx.fillRect(personaje.x + 10, personaje.y + 15, 10, 10);
+        ctx.fillRect(personaje.x + personaje.ancho - 20, personaje.y + 15, 10, 10);
     }
     
     // Instrucciones
