@@ -264,7 +264,7 @@
     <section>
         <div class="canvas-container">
             <div class="level-info" id="levelInfo">Nivel 1 - Bosque Mágico</div>
-            <canvas id="gameCanvas" width="800" height="400"></canvas>
+            <canvas id="gameCanvas" width="800" height="500"></canvas>
             <div class="game-controls">
                 <p style="color: white; margin: 15px 0;">Usa las flechas y ESPACIO para jugar</p>
                 <button class="game-button" onclick="resetGame()">Reiniciar Nivel</button>
@@ -303,7 +303,7 @@ function showSection(section) {
 // Variables del juego
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
-const pisoY = canvas.height - 40;
+const pisoY = canvas.height - 80; // Piso más alto
 let gameStarted = false;
 let currentLevel = 1;
 
@@ -398,15 +398,15 @@ function verificarImagenesCargadas() {
     }
 }
 
-// Configuración de niveles - CORREGIDAS las posiciones y tamaños
+// Configuración de niveles - ACTUALIZADA con piso más alto y sprites más grandes
 const niveles = {
     1: {
         nombre: "Nivel 1 - Bosque Mágico",
         fondoColor: "#87CEEB",
         pisoColor: "#228B22",
         enemigos: [
-            { x: 200, y: pisoY - 50, ancho: 50, alto: 50, velocidad: 1, direccion: 1, rango: 100, inicialX: 200 },
-            { x: 400, y: pisoY - 50, ancho: 50, alto: 50, velocidad: 1.5, direccion: -1, rango: 80, inicialX: 400 }
+            { x: 200, y: pisoY - 80, ancho: 80, alto: 80, velocidad: 1, direccion: 1, rango: 100, inicialX: 200 },
+            { x: 400, y: pisoY - 80, ancho: 80, alto: 80, velocidad: 1.5, direccion: -1, rango: 80, inicialX: 400 }
         ],
         plataformas: []
     },
@@ -415,9 +415,9 @@ const niveles = {
         fondoColor: "#F4A460",
         pisoColor: "#CD853F",
         enemigos: [
-            { x: 150, y: pisoY - 50, ancho: 50, alto: 50, velocidad: 2, direccion: 1, rango: 120, inicialX: 150 },
-            { x: 350, y: pisoY - 50, ancho: 50, alto: 50, velocidad: 1.8, direccion: -1, rango: 90, inicialX: 350 },
-            { x: 550, y: pisoY - 50, ancho: 50, alto: 50, velocidad: 1.2, direccion: 1, rango: 110, inicialX: 550 }
+            { x: 150, y: pisoY - 80, ancho: 80, alto: 80, velocidad: 2, direccion: 1, rango: 120, inicialX: 150 },
+            { x: 350, y: pisoY - 80, ancho: 80, alto: 80, velocidad: 1.8, direccion: -1, rango: 90, inicialX: 350 },
+            { x: 550, y: pisoY - 80, ancho: 80, alto: 80, velocidad: 1.2, direccion: 1, rango: 110, inicialX: 550 }
         ],
         plataformas: []
     },
@@ -426,22 +426,22 @@ const niveles = {
         fondoColor: "#B0E0E6",
         pisoColor: "#708090",
         enemigos: [
-            { x: 300, y: pisoY - 50, ancho: 50, alto: 50, velocidad: 0.8, direccion: 1, rango: 80, inicialX: 300 },
-            { x: 200, y: pisoY - 170, ancho: 50, alto: 50, velocidad: 1.5, direccion: -1, rango: 100, inicialX: 200 }
+            { x: 300, y: pisoY - 80, ancho: 80, alto: 80, velocidad: 0.8, direccion: 1, rango: 80, inicialX: 300 },
+            { x: 200, y: pisoY - 200, ancho: 80, alto: 80, velocidad: 1.5, direccion: -1, rango: 100, inicialX: 200 }
         ],
         plataformas: [
-            { x: 150, y: pisoY - 120, ancho: 150, alto: 20 },
-            { x: 400, y: pisoY - 180, ancho: 120, alto: 20 },
-            { x: 600, y: pisoY - 100, ancho: 100, alto: 20 }
+            { x: 150, y: pisoY - 150, ancho: 150, alto: 20 },
+            { x: 400, y: pisoY - 210, ancho: 120, alto: 20 },
+            { x: 600, y: pisoY - 130, ancho: 100, alto: 20 }
         ]
     }
 };
 
 let personaje = {
     x: 50,
-    y: pisoY - 60,
-    ancho: 50,
-    alto: 60,
+    y: pisoY - 90, // Ajustado al nuevo piso
+    ancho: 80, // Personaje más grande
+    alto: 90, // Personaje más grande
     velocidadY: 0,
     gravedad: 0.8,
     fuerzaSalto: -15,
@@ -454,12 +454,12 @@ let teclas = {
     derecha: false
 };
 
-// Meta - ajustada al tamaño correcto
+// Meta - ajustada al tamaño correcto y posición del nuevo piso
 const meta = {
     x: 650,
-    y: pisoY - 80,
-    ancho: 60,
-    alto: 80
+    y: pisoY - 120, // Ajustada al nuevo piso
+    ancho: 100, // Meta más grande
+    alto: 120 // Meta más grande
 };
 
 // Event listeners
@@ -600,11 +600,14 @@ function dibujarJuego() {
         }
     }
     
-    // Dibujar enemigos
+    // Dibujar enemigos con mejor escalado
     const enemigoImg = imagenes.enemigos[currentLevel];
     for (let enemigo of nivel.enemigos) {
         if (enemigoImg && enemigoImg.complete && enemigoImg.naturalWidth > 0) {
+            // Usar imageSmoothingEnabled para sprites pixelados
+            ctx.imageSmoothingEnabled = false;
             ctx.drawImage(enemigoImg, enemigo.x, enemigo.y, enemigo.ancho, enemigo.alto);
+            ctx.imageSmoothingEnabled = true;
         } else {
             // Fallback
             ctx.fillStyle = "#DC143C";
@@ -612,14 +615,16 @@ function dibujarJuego() {
             
             // Ojos del enemigo (fallback)
             ctx.fillStyle = "white";
-            ctx.fillRect(enemigo.x + 10, enemigo.y + 10, 8, 8);
-            ctx.fillRect(enemigo.x + enemigo.ancho - 18, enemigo.y + 10, 8, 8);
+            ctx.fillRect(enemigo.x + 15, enemigo.y + 15, 12, 12);
+            ctx.fillRect(enemigo.x + enemigo.ancho - 27, enemigo.y + 15, 12, 12);
         }
     }
     
-    // Dibujar meta
+    // Dibujar meta con mejor escalado
     if (imagenes.meta.complete && imagenes.meta.naturalWidth > 0) {
+        ctx.imageSmoothingEnabled = false;
         ctx.drawImage(imagenes.meta, meta.x, meta.y, meta.ancho, meta.alto);
+        ctx.imageSmoothingEnabled = true;
     } else {
         // Fallback
         ctx.fillStyle = "#32CD32";
@@ -627,12 +632,14 @@ function dibujarJuego() {
         
         // Bandera en la meta (fallback)
         ctx.fillStyle = "#FFD700";
-        ctx.fillRect(meta.x + 20, meta.y, 20, 30);
+        ctx.fillRect(meta.x + 30, meta.y, 30, 45);
     }
     
-    // Dibujar personaje
+    // Dibujar personaje con mejor escalado
     if (imagenes.personaje.complete && imagenes.personaje.naturalWidth > 0) {
+        ctx.imageSmoothingEnabled = false;
         ctx.drawImage(imagenes.personaje, personaje.x, personaje.y, personaje.ancho, personaje.alto);
+        ctx.imageSmoothingEnabled = true;
     } else {
         // Fallback
         ctx.fillStyle = "#1A1B41";
@@ -640,15 +647,15 @@ function dibujarJuego() {
         
         // Ojos del personaje (fallback)
         ctx.fillStyle = "white";
-        ctx.fillRect(personaje.x + 10, personaje.y + 15, 10, 10);
-        ctx.fillRect(personaje.x + personaje.ancho - 20, personaje.y + 15, 10, 10);
+        ctx.fillRect(personaje.x + 15, personaje.y + 22, 15, 15);
+        ctx.fillRect(personaje.x + personaje.ancho - 30, personaje.y + 22, 15, 15);
     }
     
     // Instrucciones
     ctx.fillStyle = "white";
-    ctx.font = "14px Arial";
-    ctx.fillText("Usa las flechas para moverte y ESPACIO para saltar", 10, 20);
-    ctx.fillText(`${niveles[currentLevel].nombre}`, 10, canvas.height - 10);
+    ctx.font = "16px Arial";
+    ctx.fillText("Usa las flechas para moverte y ESPACIO para saltar", 10, 25);
+    ctx.fillText(`${niveles[currentLevel].nombre}`, 10, canvas.height - 15);
 }
 
 function actualizarJuego() {
